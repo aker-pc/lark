@@ -59,7 +59,7 @@ func (r *DriveService) DownloadBoard(ctx context.Context, request *DownloadDrive
 		Scope:                 "Board",
 		API:                   "DownloadBoard",
 		Method:                "GET",
-		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/download_as_image",
+		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/" + request.FileToken + "/download_as_image",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
