@@ -53,6 +53,24 @@ func (r *DriveService) DownloadDriveMedia(ctx context.Context, request *Download
 	return resp.Data, response, err
 }
 
+func (r *DriveService) DownloadBoard(ctx context.Context, request *DownloadDriveMediaReq, options ...MethodOptionFunc) (*DownloadDriveMediaResp, *Response, error) {
+
+	req := &RawRequestReq{
+		Scope:                 "Board",
+		API:                   "DownloadBoard",
+		Method:                "GET",
+		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/download_as_image",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
+	}
+	resp := new(downloadDriveMediaResp)
+
+	response, err := r.cli.RawRequest(ctx, req, resp)
+	return resp.Data, response, err
+}
+
 // MockDriveDownloadDriveMedia mock DriveDownloadDriveMedia method
 func (r *Mock) MockDriveDownloadDriveMedia(f func(ctx context.Context, request *DownloadDriveMediaReq, options ...MethodOptionFunc) (*DownloadDriveMediaResp, *Response, error)) {
 	r.mockDriveDownloadDriveMedia = f
